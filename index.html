@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaflet.heat demo</title>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    <style>
+        #map { width: 100%; height: 100%;  position: absolute;}
+    </style>
+</head>
+<body>
+
+    <div id="map"></div>
+
+    <script src="leaflet-heat.js"></script>
+    <script src="leaflet.ajax.js"></script>
+
+    <script>
+
+        var map = L.map('map').setView([55.75, 37.6], 11);
+        var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+        }).addTo(map);
+
+        $.getJSON(
+            'data.json'
+        ).done(function (data) {
+
+            geoJson2heat = function(geojsonLayer) {
+                return geojsonLayer.features.map(function(feature) {
+                    return {lat:parseFloat(feature.geometry.coordinates[0]),
+                        lng:parseFloat(feature.geometry.coordinates[1])};
+                });
+            }
+            var heatMap =  L.heatLayer(geoJson2heat(data)).addTo(map);
+
+        }
+        );
+
+    </script>
+</body>
+</html>
