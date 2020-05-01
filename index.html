@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Leaflet.heat demo</title>
+    <title>Тепловая карта случаев заражения COVID в Москве</title>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
@@ -25,7 +25,7 @@
         }).addTo(map);
 
         $.getJSON(
-            'data.json'
+            'http://covid-map.mikhailborodin.com/data.json'
         ).done(function (data) {
 
             geoJson2heat = function(geojsonLayer) {
